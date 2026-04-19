@@ -1,4 +1,3 @@
-
 // 🔊 sounds
 const clickSound = new Audio("click.mp3");
 const hoverSound = new Audio("hover.mp3");
@@ -15,7 +14,6 @@ function copyText(text) {
   clickSound.currentTime = 0;
   clickSound.play();
 
-  // small toast
   const toast = document.createElement("div");
   toast.innerText = "Copied: " + text;
 
@@ -45,4 +43,41 @@ document.addEventListener("mouseover", (e) => {
     hoverSound.currentTime = 0;
     hoverSound.play();
   }
+});
+
+/* =======================
+   CLICK TO ENTER FIX (ADDED)
+======================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("overlay");
+  const main = document.getElementById("main-content");
+  const music = document.getElementById("bgmusic");
+
+  function startSite() {
+    if (!overlay) return;
+
+    // hide overlay properly
+    overlay.style.opacity = "0";
+    overlay.style.pointerEvents = "none";
+
+    setTimeout(() => {
+      overlay.style.display = "none";
+    }, 300);
+
+    // show main content
+    if (main) {
+      main.classList.remove("hidden");
+    }
+
+    // start music safely
+    if (music) {
+      music.play().catch(() => {});
+    }
+
+    // prevent multiple triggers
+    document.removeEventListener("click", startSite);
+  }
+
+  // click anywhere triggers it
+  document.addEventListener("click", startSite);
 });
