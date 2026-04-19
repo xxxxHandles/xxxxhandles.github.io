@@ -8,20 +8,34 @@
 </head>
 <body>
 
-<div id="main-content">
-  <div class="profile-box">
+<div class="handles-page">
 
-    <h2 class="section-handles">Instagram Handles</h2>
+  <h2 class="section-handles">Instagram Handles</h2>
 
-    <p>Available usernames:</p>
+  <!-- SEARCH -->
+  <input id="search" class="search-bar" placeholder="Search handles...">
 
-    <a href="https://instagram.com/xxxx1" target="_blank">@szki</a>
-    <a href="https://instagram.com/xxxx2" target="_blank">@hqau</a>
+  <!-- HANDLES LIST -->
+  <div class="handles-container">
 
-    <a href="../index.html">← Back to Hub</a>
+    <div class="handle og" onclick="copyText('@xxxx1')">
+      @xxxx1 <span>OG</span>
+    </div>
+
+    <div class="handle rare" onclick="copyText('@xxxx2')">
+      @xxxx2 <span>RARE</span>
+    </div>
+
+    <div class="handle mid" onclick="copyText('@xxxx3')">
+      @xxxx3 <span>MID</span>
+    </div>
 
   </div>
+
+  <a class="back" href="../index.html">← Back to Hub</a>
+
 </div>
 
+<script src="../handles.js"></script>
 </body>
 </html>
