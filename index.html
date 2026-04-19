@@ -6,6 +6,7 @@
   <title>My Site</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div id="overlay">
@@ -22,10 +23,12 @@
   </div>
 </div>
 
-<audio id="bgmusic" loop>
+<!-- ✅ FIXED AUDIO (important part) -->
+<audio id="bgmusic" loop preload="auto">
   <source src="audio.mp3" type="audio/mpeg">
 </audio>
 
 <script src="script.js"></script>
+
 </body>
 </html>
