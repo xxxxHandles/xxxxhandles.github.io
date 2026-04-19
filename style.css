@@ -4,6 +4,7 @@ body {
   font-family: Arial, sans-serif;
   overflow: hidden;
   color: white;
+
   background: url("background.jpg") center/cover no-repeat fixed;
 }
 
@@ -11,8 +12,8 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.65);
   z-index: 0;
 }
 
@@ -20,6 +21,7 @@ body::before {
   display: none;
 }
 
+/* OVERLAY */
 #overlay {
   position: fixed;
   inset: 0;
@@ -28,75 +30,89 @@ body::before {
   justify-content: center;
   align-items: center;
   z-index: 999;
-  color: white;
-  text-align: center;
 }
 
 #overlay h1 {
-  font-size: 24px;
   text-shadow: 0 0 10px red;
 }
 
+/* MAIN */
 #main-content {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  position: relative;
-  z-index: 2;
 }
 
+/* CARD */
 .profile-box {
-  width: 320px;
+  width: 340px;
   text-align: center;
-  padding: 30px;
+  padding: 25px;
   border-radius: 20px;
-  background: rgba(10, 10, 10, 0.85);
+
+  background: rgba(10,10,10,0.85);
+
   box-shadow:
-    0 0 10px rgba(255, 0, 0, 0.5),
-    0 0 20px rgba(255, 0, 0, 0.3),
-    0 0 40px rgba(255, 0, 0, 0.2);
+    0 0 15px rgba(255,0,0,0.5),
+    0 0 30px rgba(255,0,0,0.3);
+
   backdrop-filter: blur(10px);
 }
 
+/* PFP */
 .profile-pic {
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  margin-bottom: 15px;
-  object-fit: cover;
   border: 2px solid red;
   box-shadow: 0 0 15px red;
+  margin-bottom: 10px;
 }
 
+/* TEXT */
 .profile-box h2 {
-  margin: 10px 0;
+  margin: 5px 0;
   text-shadow: 0 0 10px red;
 }
 
 .profile-box p {
-  margin-bottom: 20px;
   color: #ccc;
+  margin-bottom: 15px;
 }
 
+/* SECTION HEADINGS */
+.section-heading {
+  margin-top: 18px;
+  margin-bottom: 8px;
+  color: #ff3b3b;
+  text-shadow: 0 0 8px red;
+}
+
+/* BUTTONS */
 .profile-box a {
   display: block;
-  margin: 12px 0;
+  margin: 8px 0;
   padding: 12px;
-  border-radius: 10px;
   text-decoration: none;
   color: white;
-  background: rgba(30, 0, 0, 0.9);
+
+  background: rgba(40,0,0,0.9);
+  border-radius: 10px;
+
+  transition: 0.25s;
   box-shadow: 0 0 10px rgba(255,0,0,0.3);
-  transition: all 0.3s ease;
 }
 
 .profile-box a:hover {
   transform: scale(1.05);
-  background: rgba(80, 0, 0, 1);
+  background: rgba(90,0,0,1);
   box-shadow: 0 0 15px red;
 }
 
+/* BLOOD */
 .blood-drop {
   position: fixed;
   top: -30px;
