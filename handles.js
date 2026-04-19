@@ -1,6 +1,16 @@
 
+const hoverSound = new Audio("../hover.mp3");
+const clickSound = new Audio("../click.mp3");
+
+hoverSound.volume = 0.2;
+clickSound.volume = 0.3;
+
+/* COPY FUNCTION */
 function copyText(text) {
   navigator.clipboard.writeText(text);
+
+  clickSound.currentTime = 0;
+  clickSound.play();
 
   const toast = document.createElement("div");
   toast.innerText = "Copied: " + text;
@@ -15,14 +25,12 @@ function copyText(text) {
   toast.style.borderRadius = "10px";
   toast.style.boxShadow = "0 0 15px red";
   toast.style.zIndex = "9999";
-  toast.style.fontSize = "14px";
 
   document.body.appendChild(toast);
-
   setTimeout(() => toast.remove(), 1200);
 }
 
-/* SEARCH SYSTEM */
+/* SEARCH */
 document.addEventListener("input", (e) => {
   if (e.target.id !== "search") return;
 
@@ -34,7 +42,16 @@ document.addEventListener("input", (e) => {
   });
 });
 
-/* AUTO SORT (OG FIRST) */
+/* HOVER SOUND */
+document.addEventListener("mouseover", (e) => {
+  const el = e.target.closest(".handle");
+  if (!el) return;
+
+  hoverSound.currentTime = 0;
+  hoverSound.play();
+});
+
+/* AUTO SORT OG FIRST */
 window.addEventListener("load", () => {
   const container = document.querySelector(".handles-container");
   if (!container) return;
@@ -42,10 +59,8 @@ window.addEventListener("load", () => {
   const items = Array.from(container.children);
 
   items.sort((a, b) => {
-    const aOG = a.classList.contains("og") ? 0 : 1;
-    const bOG = b.classList.contains("og") ? 0 : 1;
-    return aOG - bOG;
+    return (b.classList.contains("og") ? 1 : 0) - (a.classList.contains("og") ? 1 : 0);
   });
 
-  items.forEach(item => container.appendChild(item));
+  items.forEach(i => container.appendChild(i));
 });
