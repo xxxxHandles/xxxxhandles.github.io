@@ -1,7 +1,7 @@
+
 function copyText(text) {
   navigator.clipboard.writeText(text);
 
-  // clean toast popup
   const toast = document.createElement("div");
   toast.innerText = "Copied: " + text;
 
@@ -27,10 +27,25 @@ document.addEventListener("input", (e) => {
   if (e.target.id !== "search") return;
 
   const value = e.target.value.toLowerCase();
-  const items = document.querySelectorAll(".handle");
-
-  items.forEach(item => {
-    const text = item.innerText.toLowerCase();
-    item.style.display = text.includes(value) ? "block" : "none";
+  document.querySelectorAll(".handle").forEach(item => {
+    item.style.display = item.innerText.toLowerCase().includes(value)
+      ? "block"
+      : "none";
   });
+});
+
+/* AUTO SORT (OG FIRST) */
+window.addEventListener("load", () => {
+  const container = document.querySelector(".handles-container");
+  if (!container) return;
+
+  const items = Array.from(container.children);
+
+  items.sort((a, b) => {
+    const aOG = a.classList.contains("og") ? 0 : 1;
+    const bOG = b.classList.contains("og") ? 0 : 1;
+    return aOG - bOG;
+  });
+
+  items.forEach(item => container.appendChild(item));
 });
