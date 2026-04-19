@@ -1,3 +1,8 @@
+
+/* =======================
+   BASE SITE STYLE
+======================= */
+
 body {
   margin: 0;
   padding: 0;
@@ -27,6 +32,7 @@ body::before {
   border-radius: 50%;
   animation: floatUp linear infinite;
   z-index: 1;
+  pointer-events: none;
 }
 
 @keyframes floatUp {
@@ -47,13 +53,15 @@ body::before {
 
 #overlay h1 {
   text-shadow: 0 0 10px red;
+  text-align: center;
+  padding: 20px;
 }
 
 /* main layout */
 #main-content {
   position: relative;
   z-index: 2;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,7 +115,7 @@ body::before {
   text-shadow: 0 0 10px crimson;
 }
 
-/* buttons */
+/* buttons (hub page) */
 .profile-box a {
   display: block;
   margin: 8px 0;
@@ -131,6 +139,7 @@ body::before {
   top: -30px;
   font-size: 24px;
   animation: fall linear forwards;
+  pointer-events: none;
 }
 
 @keyframes fall {
@@ -138,4 +147,88 @@ body::before {
     transform: translateY(110vh);
     opacity: 0.8;
   }
+}
+
+/* =======================
+   HANDLES SYSTEM
+======================= */
+
+.handles-page {
+  text-align: center;
+  padding: 40px;
+  color: white;
+}
+
+/* search bar */
+.search-bar {
+  width: 80%;
+  max-width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  margin: 20px 0;
+  background: #111;
+  color: white;
+}
+
+/* container */
+.handles-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* handle card */
+.handle {
+  width: 260px;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  position: relative;
+
+  background: rgba(20, 0, 0, 0.85);
+  box-shadow: 0 0 10px rgba(255,0,0,0.2);
+}
+
+/* hover glow */
+.handle:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 20px red;
+}
+
+/* rarity tag */
+.handle span {
+  position: absolute;
+  right: 10px;
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+/* OG */
+.og {
+  border: 2px solid gold;
+  box-shadow: 0 0 12px gold;
+}
+
+/* RARE */
+.rare {
+  border: 2px solid cyan;
+  box-shadow: 0 0 12px cyan;
+}
+
+/* MID */
+.mid {
+  border: 2px solid gray;
+}
+
+/* back button */
+.back {
+  display: block;
+  margin-top: 25px;
+  color: red;
+  text-decoration: none;
+  font-weight: bold;
 }
