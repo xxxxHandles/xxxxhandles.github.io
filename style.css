@@ -8,6 +8,7 @@ body {
   background: url("background.jpg") center/cover no-repeat fixed;
 }
 
+/* blur layer */
 body::before {
   content: "";
   position: fixed;
@@ -17,11 +18,23 @@ body::before {
   z-index: 0;
 }
 
-.hidden {
-  display: none;
+/* floating particles */
+.particle {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 60, 60, 0.6);
+  border-radius: 50%;
+  animation: floatUp linear infinite;
+  z-index: 1;
 }
 
-/* OVERLAY */
+@keyframes floatUp {
+  from { transform: translateY(100vh); opacity: 0; }
+  to { transform: translateY(-10vh); opacity: 1; }
+}
+
+/* overlay */
 #overlay {
   position: fixed;
   inset: 0;
@@ -36,7 +49,7 @@ body::before {
   text-shadow: 0 0 10px red;
 }
 
-/* MAIN */
+/* main layout */
 #main-content {
   position: relative;
   z-index: 2;
@@ -46,79 +59,78 @@ body::before {
   align-items: center;
 }
 
-/* CARD */
+/* neon animated card */
 .profile-box {
   width: 340px;
   text-align: center;
   padding: 25px;
   border-radius: 20px;
-
   background: rgba(10,10,10,0.85);
-
-  box-shadow:
-    0 0 15px rgba(255,0,0,0.5),
-    0 0 30px rgba(255,0,0,0.3);
-
   backdrop-filter: blur(10px);
+
+  position: relative;
+  animation: glowBorder 3s infinite alternate;
 }
 
-/* PFP */
+@keyframes glowBorder {
+  0% {
+    box-shadow: 0 0 10px red, 0 0 20px rgba(255,0,0,0.3);
+  }
+  100% {
+    box-shadow: 0 0 25px red, 0 0 50px rgba(255,0,0,0.6);
+  }
+}
+
+/* profile pic */
 .profile-pic {
   width: 90px;
   height: 90px;
   border-radius: 50%;
   border: 2px solid red;
   box-shadow: 0 0 15px red;
-  margin-bottom: 10px;
 }
 
-/* TEXT */
+/* name */
 .profile-box h2 {
-  margin: 5px 0;
   text-shadow: 0 0 10px red;
 }
 
-.profile-box p {
-  color: #ccc;
-  margin-bottom: 15px;
+/* section headers */
+.section-handles {
+  color: #ff2e2e;
+  text-shadow: 0 0 10px red;
+  margin-top: 15px;
 }
 
-/* SECTION HEADINGS */
-.section-heading {
-  margin-top: 18px;
-  margin-bottom: 8px;
-  color: #ff3b3b;
-  text-shadow: 0 0 8px red;
+.section-contact {
+  color: #ff7b7b;
+  text-shadow: 0 0 10px crimson;
 }
 
-/* BUTTONS */
+/* buttons */
 .profile-box a {
   display: block;
   margin: 8px 0;
   padding: 12px;
   text-decoration: none;
   color: white;
-
   background: rgba(40,0,0,0.9);
   border-radius: 10px;
-
-  transition: 0.25s;
-  box-shadow: 0 0 10px rgba(255,0,0,0.3);
+  transition: 0.2s;
 }
 
 .profile-box a:hover {
   transform: scale(1.05);
-  background: rgba(90,0,0,1);
+  background: rgba(120,0,0,1);
   box-shadow: 0 0 15px red;
 }
 
-/* BLOOD */
+/* blood */
 .blood-drop {
   position: fixed;
   top: -30px;
   font-size: 24px;
   animation: fall linear forwards;
-  z-index: 1;
 }
 
 @keyframes fall {
