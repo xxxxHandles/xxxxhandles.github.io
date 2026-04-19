@@ -1,58 +1,48 @@
-const overlay = document.getElementById("overlay");
-const music = document.getElementById("bgmusic");
-const main = document.getElementById("main-content");
 
-music.load();
+// 🔊 sounds
+const clickSound = new Audio("click.mp3");
+const hoverSound = new Audio("hover.mp3");
 
-/* click start */
-overlay.addEventListener("click", async () => {
-  overlay.style.display = "none";
-  main.classList.remove("hidden");
+clickSound.volume = 0.3;
+hoverSound.volume = 0.15;
 
-  try {
-    await music.play();
-  } catch (err) {}
+/* =======================
+   COPY FUNCTION
+======================= */
+function copyText(text) {
+  navigator.clipboard.writeText(text);
 
-  startBlood();
-  startParticles();
-}, { once: true });
+  clickSound.currentTime = 0;
+  clickSound.play();
 
-/* blood */
-function startBlood() {
-  setInterval(() => {
-    const drop = document.createElement("div");
-    drop.classList.add("blood-drop");
-    drop.innerText = "🩸";
+  // small toast
+  const toast = document.createElement("div");
+  toast.innerText = "Copied: " + text;
 
-    drop.style.left = Math.random() * 100 + "vw";
-    drop.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  toast.style.position = "fixed";
+  toast.style.bottom = "20px";
+  toast.style.left = "50%";
+  toast.style.transform = "translateX(-50%)";
+  toast.style.background = "rgba(0,0,0,0.9)";
+  toast.style.color = "white";
+  toast.style.padding = "10px 15px";
+  toast.style.borderRadius = "10px";
+  toast.style.boxShadow = "0 0 15px red";
+  toast.style.zIndex = "9999";
 
-    document.body.appendChild(drop);
-    setTimeout(() => drop.remove(), 5000);
-  }, 300);
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.remove(), 1200);
 }
 
-/* floating particles */
-function startParticles() {
-  for (let i = 0; i < 40; i++) {
-    const p = document.createElement("div");
-    p.classList.add("particle");
-
-    p.style.left = Math.random() * 100 + "vw";
-    p.style.animationDuration = (5 + Math.random() * 10) + "s";
-    p.style.opacity = Math.random();
-
-    document.body.appendChild(p);
-  }
-}
-
-/* hover sound (subtle) */
-const hoverSound = new Audio("https://www.soundjay.com/buttons/sounds/button-09.mp3");
-hoverSound.volume = 0.2;
-
+/* =======================
+   HOVER SOUND (SAFE)
+======================= */
 document.addEventListener("mouseover", (e) => {
-  if (e.target.tagName === "A") {
+  const el = e.target;
+
+  if (el.tagName === "A") {
     hoverSound.currentTime = 0;
-    hoverSound.play().catch(() => {});
+    hoverSound.play();
   }
 });
