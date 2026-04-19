@@ -1,20 +1,85 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b0b;
+  color: white;
+  overflow: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
 #overlay {
   position: fixed;
   inset: 0;
-
+  background: #000;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  text-align: center;
-
-  background: black;
+  z-index: 999;
   color: white;
-  z-index: 9999;
+  text-align: center;
 }
 
 #overlay h1 {
-  margin: 0;
-  padding: 0 20px;
-  font-size: 20px;
+  font-size: 24px;
+}
+
+#main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-box {
+  background: rgba(20, 20, 20, 0.95);
+  padding: 30px;
+  border-radius: 15px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.15);
+}
+
+.profile-box h2 {
+  margin-bottom: 10px;
+}
+
+.profile-box p {
+  margin-bottom: 20px;
+  color: #bbb;
+}
+
+.profile-box a {
+  display: block;
+  margin: 10px 0;
+  padding: 12px;
+  text-decoration: none;
+  color: white;
+  background: #1a1a1a;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.profile-box a:hover {
+  background: #8b0000;
+}
+
+.blood-drop {
+  position: fixed;
+  top: -30px;
+  font-size: 24px;
+  animation: fall linear forwards;
+  z-index: 1;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+    opacity: 0.7;
+  }
 }
