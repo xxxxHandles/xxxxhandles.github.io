@@ -242,3 +242,49 @@ body::before {
   text-decoration: none;
   font-weight: bold;
 }
+
+/* =======================
+   PREMIUM LINK UPGRADE
+======================= */
+
+.profile-box a {
+  position: relative;
+  overflow: hidden;
+}
+
+/* neon hover glow */
+.profile-box a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px red, 0 0 30px rgba(255,0,0,0.4);
+}
+
+/* shimmer effect */
+.profile-box a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.profile-box a:hover::before {
+  left: 100%;
+}
+
+/* =======================
+   OG BADGE SYSTEM
+======================= */
+
+.og-badge {
+  color: gold;
+  text-shadow: 0 0 10px gold;
+  font-weight: bold;
+}
