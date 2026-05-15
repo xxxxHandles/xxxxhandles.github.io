@@ -21,12 +21,14 @@ function copyText(text) {
   toast.style.bottom = "20px";
   toast.style.left = "50%";
   toast.style.transform = "translateX(-50%)";
-  toast.style.background = "rgba(0,0,0,0.9)";
+  toast.style.background = "rgba(255, 105, 180, 0.9)";
   toast.style.color = "white";
   toast.style.padding = "10px 15px";
-  toast.style.borderRadius = "10px";
-  toast.style.boxShadow = "0 0 15px red";
+  toast.style.borderRadius = "25px";
+  toast.style.boxShadow = "0 0 20px hotpink, 0 0 40px rgba(255, 105, 180, 0.4)";
   toast.style.zIndex = "9999";
+  toast.style.fontWeight = "bold";
+  toast.style.letterSpacing = "0.5px";
 
   document.body.appendChild(toast);
 
@@ -46,7 +48,47 @@ document.addEventListener("mouseover", (e) => {
 });
 
 /* =======================
-   CLICK TO ENTER FIX (ADDED)
+   SPARKLES INSTEAD OF BLOOD
+======================= */
+function createSparkle() {
+  const sparkle = document.createElement("div");
+  sparkle.classList.add("sparkle");
+
+  const emojis = ["✨", "💕", "💖", "🩷", "🌸", "💗", "☆", "⋆"];
+  sparkle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+  sparkle.style.left = Math.random() * 100 + "vw";
+  sparkle.style.animationDuration = Math.random() * 4 + 5 + "s";
+  sparkle.style.fontSize = Math.random() * 16 + 14 + "px";
+
+  document.body.appendChild(sparkle);
+
+  setTimeout(() => sparkle.remove(), 10000);
+}
+
+setInterval(createSparkle, 400);
+
+/* =======================
+   PARTICLES
+======================= */
+function createParticle() {
+  const particle = document.createElement("div");
+  particle.classList.add("particle");
+
+  particle.style.left = Math.random() * 100 + "vw";
+  particle.style.animationDuration = Math.random() * 6 + 4 + "s";
+  particle.style.width = Math.random() * 4 + 2 + "px";
+  particle.style.height = particle.style.width;
+
+  document.body.appendChild(particle);
+
+  setTimeout(() => particle.remove(), 10000);
+}
+
+setInterval(createParticle, 300);
+
+/* =======================
+   CLICK TO ENTER
 ======================= */
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("overlay");
@@ -56,28 +98,24 @@ document.addEventListener("DOMContentLoaded", () => {
   function startSite() {
     if (!overlay) return;
 
-    // hide overlay properly
     overlay.style.opacity = "0";
     overlay.style.pointerEvents = "none";
+    overlay.style.transition = "opacity 0.5s ease";
 
     setTimeout(() => {
       overlay.style.display = "none";
-    }, 300);
+    }, 500);
 
-    // show main content
     if (main) {
       main.classList.remove("hidden");
     }
 
-    // start music safely
     if (music) {
       music.play().catch(() => {});
     }
 
-    // prevent multiple triggers
     document.removeEventListener("click", startSite);
   }
 
-  // click anywhere triggers it
   document.addEventListener("click", startSite);
 });
