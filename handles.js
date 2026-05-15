@@ -1,4 +1,3 @@
-
 const hoverSound = new Audio("../hover.mp3");
 const clickSound = new Audio("../click.mp3");
 
@@ -19,12 +18,13 @@ function copyText(text) {
   toast.style.bottom = "20px";
   toast.style.left = "50%";
   toast.style.transform = "translateX(-50%)";
-  toast.style.background = "rgba(0,0,0,0.9)";
+  toast.style.background = "rgba(255, 105, 180, 0.9)";
   toast.style.color = "white";
   toast.style.padding = "10px 15px";
-  toast.style.borderRadius = "10px";
-  toast.style.boxShadow = "0 0 15px red";
+  toast.style.borderRadius = "25px";
+  toast.style.boxShadow = "0 0 20px hotpink, 0 0 40px rgba(255, 105, 180, 0.4)";
   toast.style.zIndex = "9999";
+  toast.style.fontWeight = "bold";
 
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 1200);
