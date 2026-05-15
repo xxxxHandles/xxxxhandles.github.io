@@ -1,4 +1,92 @@
 /* =======================
+   PERSISTENT MUSIC SYSTEM
+======================= */
+(function() {
+  // Create a global music player that persists
+  if (!window._prettyMusic) {
+    window._prettyMusic = new Audio("audio.mp3");
+    window._prettyMusic.loop = true;
+    window._prettyMusic.volume = 1.0;
+  }
+
+  const music = window._prettyMusic;
+
+  // Restore playback position
+  const savedTime = sessionStorage.getItem("musicTime");
+  if (savedTime) {
+    music.currentTime = parseFloat(savedTime);
+  }
+
+  // Resume if it was playing
+  if (sessionStorage.getItem("musicPlaying") === "true") {
+    music.play().catch(() => {});
+  }
+
+  // Save time continuously
+  setInterval(() => {
+    if (!music.paused) {
+      sessionStorage.setItem("musicTime", music.currentTime);
+    }
+  }, 500);
+
+  // Save state before leaving
+  window.addEventListener("beforeunload", () => {
+    sessionStorage.setItem("musicTime", music.currentTime);
+    sessionStorage.setItem("musicPlaying", music.paused ? "false" : "true");
+  });
+})();
+
+/* =======================
+   CLICK SOUND
+======================= */
+const clickSound = new Audio("click.mp3");
+clickSound.volume = 0.3;
+
+const hoverSound = new Audio("hover.mp3");
+hoverSound.volume = 0.15;
+
+/* =======================
+   COPY FUNCTION
+======================= */
+function copyText(text) {
+  navigator.clipboard.writeText(text);
+
+  clickSound.currentTime = 0;
+  clickSound.play();
+
+  const toast = document.createElement("div");
+  toast.innerText = "Copied: " + text;
+
+  toast.style.position = "fixed";
+  toast.style.bottom = "20px";
+  toast.style.left = "50%";
+  toast.style.transform = "translateX(-50%)";
+  toast.style.background = "rgba(255, 105, 180, 0.9)";
+  toast.style.color = "white";
+  toast.style.padding = "10px 15px";
+  toast.style.borderRadius = "25px";
+  toast.style.boxShadow = "0 0 20px hotpink, 0 0 40px rgba(255, 105, 180, 0.4)";
+  toast.style.zIndex = "9999";
+  toast.style.fontWeight = "bold";
+  toast.style.letterSpacing = "0.5px";
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.remove(), 1200);
+}
+
+/* =======================
+   HOVER SOUND
+======================= */
+document.addEventListener("mouseover", (e) => {
+  const el = e.target;
+  if (el.tagName === "A" || el.closest(".handle")) {
+    hoverSound.currentTime = 0;
+    hoverSound.play();
+  }
+});
+
+/* =======================
    SPARKLES
 ======================= */
 function createSparkle() {
@@ -13,7 +101,6 @@ function createSparkle() {
   sparkle.style.fontSize = Math.random() * 16 + 14 + "px";
 
   document.body.appendChild(sparkle);
-
   setTimeout(() => sparkle.remove(), 10000);
 }
 
@@ -32,37 +119,23 @@ function createParticle() {
   particle.style.height = particle.style.width;
 
   document.body.appendChild(particle);
-
   setTimeout(() => particle.remove(), 10000);
 }
 
 setInterval(createParticle, 300);
 
 /* =======================
-   CLICK TO ENTER (ONE TIME ONLY)
+   CLICK TO ENTER
 ======================= */
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("overlay");
   const main = document.getElementById("main-content");
-  const music = document.getElementById("bgmusic");
+  const music = window._prettyMusic;
 
-  // Check if user already entered this session
+  // Skip overlay if already entered this session
   if (sessionStorage.getItem("entered") === "true") {
-    // Skip overlay
-    if (overlay) {
-      overlay.style.display = "none";
-    }
-    if (main) {
-      main.classList.remove("hidden");
-    }
-    // Resume music from where it left off
-    if (music) {
-      const savedTime = sessionStorage.getItem("musicTime");
-      if (savedTime) {
-        music.currentTime = parseFloat(savedTime);
-      }
-      music.play().catch(() => {});
-    }
+    if (overlay) overlay.style.display = "none";
+    if (main) main.classList.remove("hidden");
     return;
   }
 
@@ -77,12 +150,10 @@ document.addEventListener("DOMContentLoaded", () => {
       overlay.style.display = "none";
     }, 500);
 
-    if (main) {
-      main.classList.remove("hidden");
-    }
+    if (main) main.classList.remove("hidden");
 
-    // Save that user entered
     sessionStorage.setItem("entered", "true");
+    sessionStorage.setItem("musicPlaying", "true");
 
     if (music) {
       music.play().catch(() => {});
@@ -92,12 +163,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.addEventListener("click", startSite);
-});
-
-// Save music time when leaving the page
-window.addEventListener("beforeunload", () => {
-  const music = document.getElementById("bgmusic");
-  if (music && !music.paused) {
-    sessionStorage.setItem("musicTime", music.currentTime);
-  }
 });
