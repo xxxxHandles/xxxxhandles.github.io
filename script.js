@@ -1,54 +1,5 @@
-// 🔊 sounds
-const clickSound = new Audio("click.mp3");
-const hoverSound = new Audio("hover.mp3");
-
-clickSound.volume = 0.3;
-hoverSound.volume = 0.15;
-
 /* =======================
-   COPY FUNCTION
-======================= */
-function copyText(text) {
-  navigator.clipboard.writeText(text);
-
-  clickSound.currentTime = 0;
-  clickSound.play();
-
-  const toast = document.createElement("div");
-  toast.innerText = "Copied: " + text;
-
-  toast.style.position = "fixed";
-  toast.style.bottom = "20px";
-  toast.style.left = "50%";
-  toast.style.transform = "translateX(-50%)";
-  toast.style.background = "rgba(255, 105, 180, 0.9)";
-  toast.style.color = "white";
-  toast.style.padding = "10px 15px";
-  toast.style.borderRadius = "25px";
-  toast.style.boxShadow = "0 0 20px hotpink, 0 0 40px rgba(255, 105, 180, 0.4)";
-  toast.style.zIndex = "9999";
-  toast.style.fontWeight = "bold";
-  toast.style.letterSpacing = "0.5px";
-
-  document.body.appendChild(toast);
-
-  setTimeout(() => toast.remove(), 1200);
-}
-
-/* =======================
-   HOVER SOUND (SAFE)
-======================= */
-document.addEventListener("mouseover", (e) => {
-  const el = e.target;
-
-  if (el.tagName === "A") {
-    hoverSound.currentTime = 0;
-    hoverSound.play();
-  }
-});
-
-/* =======================
-   SPARKLES INSTEAD OF BLOOD
+   SPARKLES
 ======================= */
 function createSparkle() {
   const sparkle = document.createElement("div");
@@ -88,12 +39,32 @@ function createParticle() {
 setInterval(createParticle, 300);
 
 /* =======================
-   CLICK TO ENTER
+   CLICK TO ENTER (ONE TIME ONLY)
 ======================= */
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("overlay");
   const main = document.getElementById("main-content");
   const music = document.getElementById("bgmusic");
+
+  // Check if user already entered this session
+  if (sessionStorage.getItem("entered") === "true") {
+    // Skip overlay
+    if (overlay) {
+      overlay.style.display = "none";
+    }
+    if (main) {
+      main.classList.remove("hidden");
+    }
+    // Resume music from where it left off
+    if (music) {
+      const savedTime = sessionStorage.getItem("musicTime");
+      if (savedTime) {
+        music.currentTime = parseFloat(savedTime);
+      }
+      music.play().catch(() => {});
+    }
+    return;
+  }
 
   function startSite() {
     if (!overlay) return;
@@ -110,6 +81,9 @@ document.addEventListener("DOMContentLoaded", () => {
       main.classList.remove("hidden");
     }
 
+    // Save that user entered
+    sessionStorage.setItem("entered", "true");
+
     if (music) {
       music.play().catch(() => {});
     }
@@ -118,4 +92,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.addEventListener("click", startSite);
+});
+
+// Save music time when leaving the page
+window.addEventListener("beforeunload", () => {
+  const music = document.getElementById("bgmusic");
+  if (music && !music.paused) {
+    sessionStorage.setItem("musicTime", music.currentTime);
+  }
 });
