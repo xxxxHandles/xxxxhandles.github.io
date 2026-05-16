@@ -136,10 +136,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Check if this is a fresh page load (not from navigation)
   if (performance.navigation.type === 1) {
-    // Page was refreshed — clear the session so overlay shows again
+    // Page was refreshed — clear everything and stop music
     sessionStorage.removeItem("entered");
     sessionStorage.removeItem("musicPlaying");
     sessionStorage.removeItem("musicTime");
+    if (music) {
+      music.pause();
+      music.currentTime = 0;
+    }
   }
 
   if (sessionStorage.getItem("entered") === "true") {
@@ -165,6 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sessionStorage.setItem("musicPlaying", "true");
 
     if (music) {
+      music.currentTime = 0;
       music.play().catch(() => {});
     }
 
