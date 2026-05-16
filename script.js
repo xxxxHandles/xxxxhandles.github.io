@@ -29,7 +29,7 @@
     music.currentTime = parseFloat(savedTime);
   }
 
-  if (wasPlaying) {
+  if (wasPlaying && music.paused) {
     music.play().catch(() => {});
   }
 
