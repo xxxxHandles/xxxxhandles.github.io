@@ -10,24 +10,24 @@
 
   const music = window.top._prettyMusic;
 
-  // Resume if it was playing
-  if (sessionStorage.getItem("musicPlaying") === "true" && music.paused) {
-    const savedTime = sessionStorage.getItem("musicTime");
-    if (savedTime) {
-      music.currentTime = parseFloat(savedTime);
-    }
+  const wasPlaying = sessionStorage.getItem("musicPlaying") === "true";
+  const savedTime = sessionStorage.getItem("musicTime");
+
+  if (savedTime && music.paused) {
+    music.currentTime = parseFloat(savedTime);
+  }
+
+  if (wasPlaying) {
     music.play().catch(() => {});
   }
 
-  // Save time continuously
   setInterval(() => {
     if (!music.paused) {
       sessionStorage.setItem("musicTime", music.currentTime);
       sessionStorage.setItem("musicPlaying", "true");
     }
-  }, 500);
+  }, 250);
 
-  // Save state before leaving
   window.addEventListener("beforeunload", () => {
     sessionStorage.setItem("musicTime", music.currentTime);
     sessionStorage.setItem("musicPlaying", music.paused ? "false" : "true");
@@ -39,9 +39,11 @@
 ======================= */
 const clickSound = new Audio("../click.mp3");
 clickSound.volume = 0.3;
+clickSound.preload = "auto";
 
 const hoverSound = new Audio("../hover.mp3");
 hoverSound.volume = 0.2;
+hoverSound.preload = "auto";
 
 /* =======================
    COPY FUNCTION
@@ -50,7 +52,7 @@ function copyText(text) {
   navigator.clipboard.writeText(text);
 
   clickSound.currentTime = 0;
-  clickSound.play();
+  clickSound.play().catch(() => {});
 
   const toast = document.createElement("div");
   toast.innerText = "Copied: " + text;
@@ -93,7 +95,7 @@ document.addEventListener("mouseover", (e) => {
   if (!el) return;
 
   hoverSound.currentTime = 0;
-  hoverSound.play();
+  hoverSound.play().catch(() => {});
 });
 
 /* =======================
