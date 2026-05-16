@@ -134,6 +134,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const main = document.getElementById("main-content");
   const music = window.top._prettyMusic;
 
+  // Check if this is a fresh page load (not from navigation)
+  if (performance.navigation.type === 1) {
+    // Page was refreshed — clear the session so overlay shows again
+    sessionStorage.removeItem("entered");
+    sessionStorage.removeItem("musicPlaying");
+    sessionStorage.removeItem("musicTime");
+  }
+
   if (sessionStorage.getItem("entered") === "true") {
     if (overlay) overlay.style.display = "none";
     if (main) main.classList.remove("hidden");
