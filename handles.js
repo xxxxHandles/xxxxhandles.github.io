@@ -10,16 +10,17 @@
 
   const music = window.top._prettyMusic;
 
-  // Stop music on refresh and redirect to hub
+  // Redirect to hub on refresh
   if (performance.navigation.type === 1) {
     sessionStorage.removeItem("entered");
-    sessionStorage.removeItem("musicPlaying");
-    sessionStorage.removeItem("musicTime");
     if (music) {
       music.pause();
       music.currentTime = 0;
     }
+    sessionStorage.removeItem("musicPlaying");
+    sessionStorage.removeItem("musicTime");
     window.location.href = "../index.html";
+    return;
   }
 
   const wasPlaying = sessionStorage.getItem("musicPlaying") === "true";
@@ -29,7 +30,7 @@
     music.currentTime = parseFloat(savedTime);
   }
 
-  if (wasPlaying) {
+  if (wasPlaying && music.paused) {
     music.play().catch(() => {});
   }
 
