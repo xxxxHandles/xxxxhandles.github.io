@@ -10,6 +10,17 @@
 
   const music = window.top._prettyMusic;
 
+  // Stop music on refresh
+  if (performance.navigation.type === 1) {
+    sessionStorage.removeItem("entered");
+    sessionStorage.removeItem("musicPlaying");
+    sessionStorage.removeItem("musicTime");
+    if (music) {
+      music.pause();
+      music.currentTime = 0;
+    }
+  }
+
   const wasPlaying = sessionStorage.getItem("musicPlaying") === "true";
   const savedTime = sessionStorage.getItem("musicTime");
 
