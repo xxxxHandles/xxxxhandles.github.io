@@ -2,13 +2,14 @@
    BASE SITE STYLE
 ======================= */
 
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', 'Poppins', Arial, sans-serif;
+  font-family: 'Nunito', 'Segoe UI', sans-serif;
   overflow: hidden;
   color: white;
-
   background: url("background.jpg") center/cover no-repeat fixed;
 }
 
@@ -17,51 +18,58 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  backdrop-filter: blur(20px);
-  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  background: rgba(20, 10, 30, 0.55);
   z-index: 0;
 }
 
-/* floating particles */
+/* floating particles - pink */
 .particle {
   position: fixed;
   width: 3px;
   height: 3px;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 182, 193, 0.8);
   border-radius: 50%;
   animation: floatUp linear infinite;
   z-index: 1;
   pointer-events: none;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
 }
 
 @keyframes floatUp {
   from { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-  50% { opacity: 0.8; }
+  50% { opacity: 1; }
   to { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
 }
 
-/* overlay */
+/* overlay - dark purple with shimmer */
 #overlay {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #0d0d0d, #1a1a1a, #0d0d0d);
+  background: linear-gradient(135deg, #1a0a1e, #1e0a2e, #150a1e);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  animation: overlayShimmer 4s ease-in-out infinite;
+}
+
+@keyframes overlayShimmer {
+  0%, 100% { background: linear-gradient(135deg, #1a0a1e, #1e0a2e, #150a1e); }
+  50% { background: linear-gradient(135deg, #1e0a2e, #220a35, #1a0a1e); }
 }
 
 #overlay h1 {
-  text-shadow: 0 0 40px rgba(128, 0, 128, 0.6), 0 0 80px rgba(128, 0, 128, 0.3);
+  text-shadow: 0 0 30px rgba(255, 105, 180, 0.9), 0 0 60px rgba(255, 20, 147, 0.6), 0 0 90px rgba(255, 105, 180, 0.4);
   text-align: center;
   padding: 20px;
   color: #ffffff;
-  font-size: 2em;
-  letter-spacing: 4px;
-  font-weight: 700;
-  font-family: 'Segoe UI', 'Poppins', Arial, sans-serif;
+  font-size: 1.5em;
+  letter-spacing: -1px;
+  font-weight: 900;
+  font-family: 'Nunito', 'Segoe UI', sans-serif;
   text-transform: uppercase;
+  word-spacing: -3px;
 }
 
 /* main layout */
@@ -74,16 +82,16 @@ body::before {
   align-items: center;
 }
 
-/* premium card */
+/* premium card - deep purple glass */
 .profile-box {
   width: 360px;
   text-align: center;
   padding: 30px;
-  border-radius: 16px;
-  background: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  background: rgba(30, 10, 40, 0.75);
   backdrop-filter: blur(25px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 182, 193, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 105, 180, 0.1);
 }
 
 /* profile pic */
@@ -91,39 +99,41 @@ body::before {
   width: 85px;
   height: 85px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 182, 193, 0.5);
+  box-shadow: 0 0 25px rgba(255, 105, 180, 0.4), 0 0 60px rgba(255, 20, 147, 0.2);
   transition: 0.3s;
 }
 
 .profile-pic:hover {
   transform: scale(1.05);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 105, 180, 0.8);
+  box-shadow: 0 0 40px rgba(255, 105, 180, 0.6), 0 0 80px rgba(255, 20, 147, 0.3);
 }
 
-/* name */
+/* name - PINK GLOW */
 .profile-box h2 {
-  font-size: 1.6em;
-  letter-spacing: 2px;
-  font-weight: 400;
+  font-size: 1.8em;
+  letter-spacing: 1px;
+  font-weight: 800;
   color: #ffffff;
   margin: 15px 0 5px 0;
+  text-shadow: 0 0 25px rgba(255, 105, 180, 0.9), 0 0 50px rgba(255, 20, 147, 0.6), 0 0 80px rgba(255, 105, 180, 0.4);
 }
 
-/* welcome text */
+/* welcome text - bold */
 .profile-box p {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 192, 203, 0.8);
   font-size: 13px;
   letter-spacing: 1px;
   margin-bottom: 20px;
+  font-weight: 700;
 }
 
-/* section headers */
+/* section headers - bold */
 .section-handles {
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 400;
-  font-size: 11px;
+  color: rgba(255, 182, 193, 0.9);
+  font-weight: 800;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 3px;
   margin-top: 20px;
@@ -131,36 +141,36 @@ body::before {
 }
 
 .section-contact {
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 400;
-  font-size: 11px;
+  color: rgba(255, 182, 193, 0.9);
+  font-weight: 800;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 3px;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
-/* hub buttons */
+/* hub buttons - bold */
 .profile-box a {
   display: block;
   margin: 6px 0;
   padding: 13px;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 105, 180, 0.1);
+  border: 1px solid rgba(255, 182, 193, 0.15);
+  border-radius: 12px;
   transition: 0.25s;
   letter-spacing: 0.5px;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 14px;
 }
 
 .profile-box a:hover {
   transform: scale(1.02);
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+  background: rgba(255, 105, 180, 0.2);
+  border-color: rgba(255, 105, 180, 0.5);
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.25);
   color: #ffffff;
 }
 
@@ -172,7 +182,7 @@ body::before {
   animation: sparkleFall linear forwards;
   pointer-events: none;
   z-index: 3;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 @keyframes sparkleFall {
@@ -183,7 +193,7 @@ body::before {
 }
 
 /* =======================
-   HANDLES SYSTEM (FULL)
+   HANDLES SYSTEM
 ======================= */
 
 .handles-page {
@@ -198,11 +208,10 @@ body::before {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* handles page title */
 .handles-page h1 {
-  font-weight: 300;
+  font-weight: 800;
   letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 /* search */
@@ -210,23 +219,24 @@ body::before {
   width: 80%;
   max-width: 300px;
   padding: 12px 16px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 182, 193, 0.2);
   outline: none;
   margin: 20px 0;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 105, 180, 0.08);
   color: white;
   font-size: 14px;
   transition: 0.3s;
+  font-weight: 600;
 }
 
 .search-bar:focus {
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 105, 180, 0.5);
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
 }
 
 .search-bar::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 182, 193, 0.4);
 }
 
 /* container */
@@ -237,80 +247,82 @@ body::before {
   gap: 10px;
 }
 
-/* handle card */
+/* handle card - bold */
 .handle {
   width: 280px;
   padding: 14px;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   transition: 0.25s ease;
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 105, 180, 0.05);
+  border: 1px solid rgba(255, 182, 193, 0.12);
+  font-weight: 700;
 }
 
 .handle:hover {
   transform: scale(1.02);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 105, 180, 0.15);
+  border-color: rgba(255, 105, 180, 0.35);
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
 }
 
-/* rarity tag */
+/* rarity tag - bold */
 .handle span {
   position: absolute;
   right: 12px;
   font-size: 10px;
-  opacity: 0.7;
-  font-weight: 400;
+  opacity: 0.85;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 /* OG */
 .og {
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  background: rgba(255, 215, 0, 0.03);
+  border: 1px solid rgba(255, 215, 0, 0.45);
+  background: rgba(255, 215, 0, 0.06);
 }
 
 .og:hover {
-  border-color: rgba(255, 215, 0, 0.5);
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+  border-color: rgba(255, 215, 0, 0.7);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.2);
 }
 
 /* RARE */
 .rare {
-  border: 1px solid rgba(100, 200, 255, 0.3);
-  background: rgba(100, 200, 255, 0.03);
+  border: 1px solid rgba(255, 105, 180, 0.35);
+  background: rgba(255, 105, 180, 0.05);
 }
 
 .rare:hover {
-  border-color: rgba(100, 200, 255, 0.5);
-  box-shadow: 0 0 20px rgba(100, 200, 255, 0.1);
+  border-color: rgba(255, 105, 180, 0.6);
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
 }
 
 /* MID */
 .mid {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 182, 193, 0.12);
 }
 
-/* back */
+/* back - bold */
 .back {
   display: block;
   margin-top: 25px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 182, 193, 0.7);
   text-decoration: none;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 13px;
   transition: 0.3s;
   letter-spacing: 1px;
 }
 
 .back:hover {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 105, 180, 1);
 }
 
 /* =======================
-   PREMIUM LINK UPGRADE
+   SHIMMER EFFECT
 ======================= */
 
 .profile-box a {
@@ -318,7 +330,6 @@ body::before {
   overflow: hidden;
 }
 
-/* shimmer effect */
 .profile-box a::before {
   content: "";
   position: absolute;
@@ -329,7 +340,7 @@ body::before {
   background: linear-gradient(
     120deg,
     transparent,
-    rgba(255, 255, 255, 0.05),
+    rgba(255, 192, 203, 0.15),
     transparent
   );
   transition: 0.6s;
@@ -340,12 +351,12 @@ body::before {
 }
 
 /* =======================
-   OG BADGE SYSTEM
+   OG BADGE
 ======================= */
 
 .og-badge {
-  color: rgba(255, 215, 0, 0.8);
-  font-weight: 400;
+  color: rgba(255, 215, 0, 0.95);
+  font-weight: 800;
   letter-spacing: 1px;
 }
 
