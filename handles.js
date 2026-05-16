@@ -1,10 +1,51 @@
-const hoverSound = new Audio("../hover.mp3");
-const clickSound = new Audio("../click.mp3");
+/* =======================
+   PERSISTENT MUSIC SYSTEM
+======================= */
+(function() {
+  if (!window.top._prettyMusic) {
+    window.top._prettyMusic = new Audio("../audio.mp3");
+    window.top._prettyMusic.loop = true;
+    window.top._prettyMusic.volume = 1.0;
+  }
 
-hoverSound.volume = 0.2;
+  const music = window.top._prettyMusic;
+
+  // Resume if it was playing
+  if (sessionStorage.getItem("musicPlaying") === "true" && music.paused) {
+    const savedTime = sessionStorage.getItem("musicTime");
+    if (savedTime) {
+      music.currentTime = parseFloat(savedTime);
+    }
+    music.play().catch(() => {});
+  }
+
+  // Save time continuously
+  setInterval(() => {
+    if (!music.paused) {
+      sessionStorage.setItem("musicTime", music.currentTime);
+      sessionStorage.setItem("musicPlaying", "true");
+    }
+  }, 500);
+
+  // Save state before leaving
+  window.addEventListener("beforeunload", () => {
+    sessionStorage.setItem("musicTime", music.currentTime);
+    sessionStorage.setItem("musicPlaying", music.paused ? "false" : "true");
+  });
+})();
+
+/* =======================
+   CLICK & HOVER SOUNDS
+======================= */
+const clickSound = new Audio("../click.mp3");
 clickSound.volume = 0.3;
 
-/* COPY FUNCTION */
+const hoverSound = new Audio("../hover.mp3");
+hoverSound.volume = 0.2;
+
+/* =======================
+   COPY FUNCTION
+======================= */
 function copyText(text) {
   navigator.clipboard.writeText(text);
 
@@ -30,7 +71,9 @@ function copyText(text) {
   setTimeout(() => toast.remove(), 1200);
 }
 
-/* SEARCH */
+/* =======================
+   SEARCH
+======================= */
 document.addEventListener("input", (e) => {
   if (e.target.id !== "search") return;
 
@@ -42,7 +85,9 @@ document.addEventListener("input", (e) => {
   });
 });
 
-/* HOVER SOUND */
+/* =======================
+   HOVER SOUND
+======================= */
 document.addEventListener("mouseover", (e) => {
   const el = e.target.closest(".handle");
   if (!el) return;
@@ -51,7 +96,9 @@ document.addEventListener("mouseover", (e) => {
   hoverSound.play();
 });
 
-/* AUTO SORT OG FIRST */
+/* =======================
+   AUTO SORT OG FIRST
+======================= */
 window.addEventListener("load", () => {
   const container = document.querySelector(".handles-container");
   if (!container) return;
