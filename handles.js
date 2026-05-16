@@ -5,7 +5,7 @@
   if (!window.top._prettyMusic) {
     window.top._prettyMusic = new Audio("../audio.mp3");
     window.top._prettyMusic.loop = true;
-    window.top._prettyMusic.volume = 1.0;
+    window.top._prettyMusic.volume = 0.8;
   }
 
   const music = window.top._prettyMusic;
@@ -51,11 +51,11 @@
    CLICK & HOVER SOUNDS
 ======================= */
 const clickSound = new Audio("../click.mp3");
-clickSound.volume = 0.3;
+clickSound.volume = 0.2;
 clickSound.preload = "auto";
 
 const hoverSound = new Audio("../hover.mp3");
-hoverSound.volume = 0.2;
+hoverSound.volume = 0.1;
 hoverSound.preload = "auto";
 
 /* =======================
@@ -74,13 +74,16 @@ function copyText(text) {
   toast.style.bottom = "20px";
   toast.style.left = "50%";
   toast.style.transform = "translateX(-50%)";
-  toast.style.background = "rgba(255, 105, 180, 0.9)";
+  toast.style.background = "rgba(0, 0, 0, 0.9)";
   toast.style.color = "white";
-  toast.style.padding = "10px 15px";
-  toast.style.borderRadius = "25px";
-  toast.style.boxShadow = "0 0 20px hotpink, 0 0 40px rgba(255, 105, 180, 0.4)";
+  toast.style.padding = "10px 20px";
+  toast.style.borderRadius = "8px";
+  toast.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.5)";
   toast.style.zIndex = "9999";
-  toast.style.fontWeight = "bold";
+  toast.style.fontWeight = "400";
+  toast.style.fontSize = "13px";
+  toast.style.letterSpacing = "1px";
+  toast.style.border = "1px solid rgba(255, 255, 255, 0.1)";
 
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 1200);
