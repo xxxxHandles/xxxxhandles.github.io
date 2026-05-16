@@ -2,7 +2,6 @@
    PERSISTENT MUSIC SYSTEM
 ======================= */
 (function() {
-  // Use a single shared audio player across all pages
   if (!window.top._prettyMusic) {
     window.top._prettyMusic = new Audio("audio.mp3");
     window.top._prettyMusic.loop = true;
@@ -11,26 +10,27 @@
 
   const music = window.top._prettyMusic;
 
-  // Restore playback position
+  // Immediately restore state
+  const wasPlaying = sessionStorage.getItem("musicPlaying") === "true";
   const savedTime = sessionStorage.getItem("musicTime");
+
   if (savedTime && music.paused) {
     music.currentTime = parseFloat(savedTime);
   }
 
-  // Resume if it was playing
-  if (sessionStorage.getItem("musicPlaying") === "true") {
+  if (wasPlaying) {
     music.play().catch(() => {});
   }
 
-  // Save time continuously
+  // Save time frequently
   setInterval(() => {
     if (!music.paused) {
       sessionStorage.setItem("musicTime", music.currentTime);
       sessionStorage.setItem("musicPlaying", "true");
     }
-  }, 500);
+  }, 250);
 
-  // Save state before leaving
+  // Save before unload
   window.addEventListener("beforeunload", () => {
     sessionStorage.setItem("musicTime", music.currentTime);
     sessionStorage.setItem("musicPlaying", music.paused ? "false" : "true");
@@ -42,9 +42,11 @@
 ======================= */
 const clickSound = new Audio("click.mp3");
 clickSound.volume = 0.3;
+clickSound.preload = "auto";
 
 const hoverSound = new Audio("hover.mp3");
 hoverSound.volume = 0.15;
+hoverSound.preload = "auto";
 
 /* =======================
    COPY FUNCTION
@@ -53,7 +55,7 @@ function copyText(text) {
   navigator.clipboard.writeText(text);
 
   clickSound.currentTime = 0;
-  clickSound.play();
+  clickSound.play().catch(() => {});
 
   const toast = document.createElement("div");
   toast.innerText = "Copied: " + text;
@@ -82,7 +84,7 @@ document.addEventListener("mouseover", (e) => {
   const el = e.target;
   if (el.tagName === "A" || el.closest(".handle")) {
     hoverSound.currentTime = 0;
-    hoverSound.play();
+    hoverSound.play().catch(() => {});
   }
 });
 
@@ -132,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const main = document.getElementById("main-content");
   const music = window.top._prettyMusic;
 
-  // Skip overlay if already entered this session
   if (sessionStorage.getItem("entered") === "true") {
     if (overlay) overlay.style.display = "none";
     if (main) main.classList.remove("hidden");
@@ -144,11 +145,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     overlay.style.opacity = "0";
     overlay.style.pointerEvents = "none";
-    overlay.style.transition = "opacity 0.5s ease";
+    overlay.style.transition = "opacity 0.3s ease";
 
     setTimeout(() => {
       overlay.style.display = "none";
-    }, 500);
+    }, 300);
 
     if (main) main.classList.remove("hidden");
 
