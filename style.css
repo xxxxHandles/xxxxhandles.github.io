@@ -45,7 +45,7 @@ body::before {
 #overlay {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a, #0d0d0d);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,13 +53,15 @@ body::before {
 }
 
 #overlay h1 {
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 40px rgba(128, 0, 128, 0.6), 0 0 80px rgba(128, 0, 128, 0.3);
   text-align: center;
   padding: 20px;
   color: #ffffff;
-  font-size: 1.8em;
-  letter-spacing: 3px;
-  font-weight: 300;
+  font-size: 2em;
+  letter-spacing: 4px;
+  font-weight: 700;
+  font-family: 'Segoe UI', 'Poppins', Arial, sans-serif;
+  text-transform: uppercase;
 }
 
 /* main layout */
