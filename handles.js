@@ -10,7 +10,7 @@
 
   const music = window.top._prettyMusic;
 
-  // Stop music on refresh
+  // Stop music on refresh and redirect to hub
   if (performance.navigation.type === 1) {
     sessionStorage.removeItem("entered");
     sessionStorage.removeItem("musicPlaying");
@@ -19,6 +19,7 @@
       music.pause();
       music.currentTime = 0;
     }
+    window.location.href = "../index.html";
   }
 
   const wasPlaying = sessionStorage.getItem("musicPlaying") === "true";
