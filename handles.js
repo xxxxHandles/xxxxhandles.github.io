@@ -10,7 +10,6 @@
 
   const music = window.top._prettyMusic;
 
-  // Redirect to hub on refresh
   if (performance.navigation.type === 1) {
     sessionStorage.removeItem("entered");
     if (music) {
@@ -80,10 +79,10 @@ function copyText(text) {
   toast.style.borderRadius = "8px";
   toast.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.5)";
   toast.style.zIndex = "9999";
-  toast.style.fontWeight = "400";
+  toast.style.fontWeight = "700";
   toast.style.fontSize = "13px";
   toast.style.letterSpacing = "1px";
-  toast.style.border = "1px solid rgba(255, 255, 255, 0.1)";
+  toast.style.border = "1px solid rgba(255, 182, 193, 0.3)";
 
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 1200);
