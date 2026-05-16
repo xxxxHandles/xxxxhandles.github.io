@@ -5,7 +5,7 @@
   if (!window.top._prettyMusic) {
     window.top._prettyMusic = new Audio("audio.mp3");
     window.top._prettyMusic.loop = true;
-    window.top._prettyMusic.volume = 1.0;
+    window.top._prettyMusic.volume = 0.8;
   }
 
   const music = window.top._prettyMusic;
@@ -52,11 +52,11 @@
    CLICK SOUND
 ======================= */
 const clickSound = new Audio("click.mp3");
-clickSound.volume = 0.3;
+clickSound.volume = 0.2;
 clickSound.preload = "auto";
 
 const hoverSound = new Audio("hover.mp3");
-hoverSound.volume = 0.15;
+hoverSound.volume = 0.1;
 hoverSound.preload = "auto";
 
 /* =======================
@@ -75,14 +75,16 @@ function copyText(text) {
   toast.style.bottom = "20px";
   toast.style.left = "50%";
   toast.style.transform = "translateX(-50%)";
-  toast.style.background = "rgba(255, 105, 180, 0.9)";
+  toast.style.background = "rgba(0, 0, 0, 0.9)";
   toast.style.color = "white";
-  toast.style.padding = "10px 15px";
-  toast.style.borderRadius = "25px";
-  toast.style.boxShadow = "0 0 20px hotpink, 0 0 40px rgba(255, 105, 180, 0.4)";
+  toast.style.padding = "10px 20px";
+  toast.style.borderRadius = "8px";
+  toast.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.5)";
   toast.style.zIndex = "9999";
-  toast.style.fontWeight = "bold";
-  toast.style.letterSpacing = "0.5px";
+  toast.style.fontWeight = "400";
+  toast.style.fontSize = "13px";
+  toast.style.letterSpacing = "1px";
+  toast.style.border = "1px solid rgba(255, 255, 255, 0.1)";
 
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 1200);
@@ -106,18 +108,18 @@ function createSparkle() {
   const sparkle = document.createElement("div");
   sparkle.classList.add("sparkle");
 
-  const emojis = ["✨", "💕", "💖", "🩷", "🌸", "💗", "☆", "⋆"];
+  const emojis = ["✦", "✧", "⋆", "☆", "◌", "·"];
   sparkle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
 
   sparkle.style.left = Math.random() * 100 + "vw";
-  sparkle.style.animationDuration = Math.random() * 4 + 5 + "s";
-  sparkle.style.fontSize = Math.random() * 16 + 14 + "px";
+  sparkle.style.animationDuration = Math.random() * 5 + 6 + "s";
+  sparkle.style.fontSize = Math.random() * 10 + 8 + "px";
 
   document.body.appendChild(sparkle);
-  setTimeout(() => sparkle.remove(), 10000);
+  setTimeout(() => sparkle.remove(), 12000);
 }
 
-setInterval(createSparkle, 400);
+setInterval(createSparkle, 500);
 
 /* =======================
    PARTICLES
@@ -127,15 +129,15 @@ function createParticle() {
   particle.classList.add("particle");
 
   particle.style.left = Math.random() * 100 + "vw";
-  particle.style.animationDuration = Math.random() * 6 + 4 + "s";
-  particle.style.width = Math.random() * 4 + 2 + "px";
+  particle.style.animationDuration = Math.random() * 8 + 6 + "s";
+  particle.style.width = Math.random() * 2 + 1 + "px";
   particle.style.height = particle.style.width;
 
   document.body.appendChild(particle);
-  setTimeout(() => particle.remove(), 10000);
+  setTimeout(() => particle.remove(), 15000);
 }
 
-setInterval(createParticle, 300);
+setInterval(createParticle, 400);
 
 /* =======================
    CLICK TO ENTER
@@ -147,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Check if this is a fresh page load (not from navigation)
   if (performance.navigation.type === 1) {
-    // Page was refreshed — clear everything and stop music
     sessionStorage.removeItem("entered");
     sessionStorage.removeItem("musicPlaying");
     sessionStorage.removeItem("musicTime");
@@ -168,11 +169,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     overlay.style.opacity = "0";
     overlay.style.pointerEvents = "none";
-    overlay.style.transition = "opacity 0.3s ease";
+    overlay.style.transition = "opacity 0.4s ease";
 
     setTimeout(() => {
       overlay.style.display = "none";
-    }, 300);
+    }, 400);
 
     if (main) main.classList.remove("hidden");
 
