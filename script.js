@@ -2,18 +2,18 @@
    PERSISTENT MUSIC SYSTEM
 ======================= */
 (function() {
-  // Create a global music player that persists
-  if (!window._prettyMusic) {
-    window._prettyMusic = new Audio("audio.mp3");
-    window._prettyMusic.loop = true;
-    window._prettyMusic.volume = 1.0;
+  // Use a single shared audio player across all pages
+  if (!window.top._prettyMusic) {
+    window.top._prettyMusic = new Audio("audio.mp3");
+    window.top._prettyMusic.loop = true;
+    window.top._prettyMusic.volume = 1.0;
   }
 
-  const music = window._prettyMusic;
+  const music = window.top._prettyMusic;
 
   // Restore playback position
   const savedTime = sessionStorage.getItem("musicTime");
-  if (savedTime) {
+  if (savedTime && music.paused) {
     music.currentTime = parseFloat(savedTime);
   }
 
@@ -26,6 +26,7 @@
   setInterval(() => {
     if (!music.paused) {
       sessionStorage.setItem("musicTime", music.currentTime);
+      sessionStorage.setItem("musicPlaying", "true");
     }
   }, 500);
 
@@ -71,7 +72,6 @@ function copyText(text) {
   toast.style.letterSpacing = "0.5px";
 
   document.body.appendChild(toast);
-
   setTimeout(() => toast.remove(), 1200);
 }
 
@@ -130,7 +130,7 @@ setInterval(createParticle, 300);
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("overlay");
   const main = document.getElementById("main-content");
-  const music = window._prettyMusic;
+  const music = window.top._prettyMusic;
 
   // Skip overlay if already entered this session
   if (sessionStorage.getItem("entered") === "true") {
